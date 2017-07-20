@@ -402,31 +402,6 @@
         "wires": []
     },
     {
-        "id": "9f79b51e.e44298",
-        "type": "microPi",
-        "z": "478291da.a65398",
-        "name": "microPi",
-        "filename": "/home/pi/audio/demo.wav",
-        "domain": "http://localhost:1880",
-        "rate": "16000",
-        "bitwidth": "16",
-        "endian": "little",
-        "encoding": "signed-integer",
-        "channels": "2",
-        "silence": "10",
-        "debug": true,
-        "mode": "666",
-        "x": 400,
-        "y": 180,
-        "wires": [
-            [],
-            [
-                "a2e69d66.a297e"
-            ],
-            []
-        ]
-    },
-    {
         "id": "95752647.9edde",
         "type": "inject",
         "z": "478291da.a65398",
@@ -441,7 +416,7 @@
         "y": 160,
         "wires": [
             [
-                "9f79b51e.e44298"
+                "bcf5e552.1ff2d"
             ]
         ]
     },
@@ -460,7 +435,7 @@
         "y": 200,
         "wires": [
             [
-                "9f79b51e.e44298"
+                "bcf5e552.1ff2d"
             ]
         ]
     },
@@ -693,7 +668,7 @@
         "id": "aa287eb7.175218",
         "type": "change",
         "z": "478291da.a65398",
-        "name": "",
+        "name": "Party msg",
         "rules": [
             {
                 "t": "set",
@@ -708,7 +683,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 420,
+        "x": 400,
         "y": 600,
         "wires": [
             [
@@ -723,7 +698,7 @@
         "name": "node-red-contrib-speakerpi dependency",
         "info": "This flow requires the\n  node-red-contrib-speakerpi\nfor the Speaker Pi node.\nYou can either \n  $ sudo npm -g install node-red-contrib-speakerpi\n  and restart the Node-RED service\nor install it from Node-RED Manage Palette.",
         "x": 1080,
-        "y": 660,
+        "y": 680,
         "wires": []
     },
     {
@@ -735,5 +710,30 @@
         "x": 310,
         "y": 120,
         "wires": []
+    },
+    {
+        "id": "bcf5e552.1ff2d",
+        "type": "microPi",
+        "z": "478291da.a65398",
+        "name": "microPi",
+        "filename": "/home/pi/audio/demo.wav",
+        "domain": "http://localhost:1880/getAudio",
+        "rate": "16000",
+        "bitwidth": "16",
+        "endian": "little",
+        "encoding": "signed-integer",
+        "channels": "1",
+        "silence": "5",
+        "debug": "false",
+        "mode": "",
+        "x": 400,
+        "y": 180,
+        "wires": [
+            [],
+            [
+                "a2e69d66.a297e"
+            ],
+            []
+        ]
     }
 ]
