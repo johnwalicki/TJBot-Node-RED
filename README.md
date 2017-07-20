@@ -16,20 +16,20 @@ https://github.com/johnwalicki/TJBot-Node-RED/flows
 
 ## Node-RED flows in this repository:
 This flow receives a Twitter feed and calls Tone Analyzer
-![TJBot Twitter Tone Analysis flow](/TJBot-Node-RED/blob/master/pictures/TJBotTweetToneAnalysisBlinkLEDWave.png?raw=true "TJBot Twitter Analyzer flow")
+![TJBot Twitter Tone Analysis flow](/pictures/TJBotTweetToneAnalysisBlinkLEDWave.png?raw=true "TJBot Twitter Analyzer flow")
 This flow records speech from the browser microphone and controls the LED color and waves his arm
-![TJBot Speech to Text Control the LED color and Wave flow](/TJBot-Node-RED/blob/master/pictures/TJBotSetColorWaveviaSpeechCommand.png?raw=true "TJBot Speech to Text flow")
+![TJBot Speech to Text Control the LED color and Wave flow](/pictures/TJBotSetColorWaveviaSpeechCommand.png?raw=true "TJBot Speech to Text flow")
 This flow announces the current Weather Conditions using Text to Speech.
-![TJBot Announce the Weather conditions using Text to Speech flow](/TJBot-Node-RED/blob/master/pictures/TJBotWeatherForecastTTSAnnouncements.png?raw=true "TJBot Speech to Text flow")
+![TJBot Announce the Weather conditions using Text to Speech flow](/pictures/TJBotWeatherForecastTTSAnnouncements.png?raw=true "TJBot Speech to Text flow")
 TJBot loves to party so I created a simple flow that randomly generates colors and blinks the TJBot NeoPixel.
-![TJBot LED Party flow](/TJBot-Node-RED/blob/master/pictures/TJBotLEDParty.png?raw=true "TJBot LED Party flow")
+![TJBot LED Party flow](/pictures/TJBotLEDParty.png?raw=true "TJBot LED Party flow")
 I've taught TJBot to read and identify images by using Watson Visual Recognition and Text Extraction.
-![TJBot Visual Recognition Image Classification Text Extraction flow](/TJBot-Node-RED/blob/master/pictures/TJBot-CameraFlow.png?raw=true "TJBot Watson Vision flow")
+![TJBot Visual Recognition Image Classification Text Extraction flow](/pictures/TJBot-CameraFlow.png?raw=true "TJBot Watson Vision flow")
 A browser screenshot of the "TJBot Cam" Node-RED Dashboard that shows Image Classification
-![TJBot Visual Recognition Image Classification Node-RED Dashboard](/TJBot-Node-RED/blob/master/pictures/TJBot-CameraResults-racecar.png?raw=true "TJBot Node-RED Dashboard Racecar")
+![TJBot Visual Recognition Image Classification Node-RED Dashboard](/pictures/TJBot-CameraResults-racecar.png?raw=true "TJBot Node-RED Dashboard Racecar")
 A browser screenshot of the "TJBot Cam" Node-RED Dashboard that shows Text Extraction
-![TJBot Visual Recognition Image Classification Node-RED Dashboard](/TJBot-Node-RED/blob/master/pictures/TJBot-CameraResults-Party.png?raw=true "TJBot Node-RED Dashboard Party Text Extraction")
-https://github.com/johnwalicki/TJBot-Node-RED/blob/master/pictures/TJBot-CameraFlow.png
+![TJBot Visual Recognition Image Classification Node-RED Dashboard](/pictures/TJBot-CameraResults-Party.png?raw=true "TJBot Node-RED Dashboard Party Text Extraction")
+
 ## Node-RED Dependencies and Install Instructions
 These flows use a variety of Node-RED nodes that you might need to install on your Raspberry Pi.
 * node-red-node-watson
