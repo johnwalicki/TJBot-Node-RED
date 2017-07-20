@@ -1,0 +1,1010 @@
+[
+    {
+        "id": "70e9484.17bd338",
+        "type": "tab",
+        "label": "TJBot Camera",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "7691e54b.3eacb4",
+        "type": "switch",
+        "z": "70e9484.17bd338",
+        "name": "Click",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "regex",
+                "v": "error",
+                "vt": "str",
+                "case": true
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 2,
+        "x": 950,
+        "y": 80,
+        "wires": [
+            [],
+            [
+                "700f737d.f7192c",
+                "f39addb7.65178"
+            ]
+        ]
+    },
+    {
+        "id": "af1a4df9.99b64",
+        "type": "debug",
+        "z": "70e9484.17bd338",
+        "name": "Print msg.result.images",
+        "active": true,
+        "console": "false",
+        "complete": "result.images",
+        "x": 1050,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "258d44c2.0366ac",
+        "type": "link out",
+        "z": "70e9484.17bd338",
+        "name": "",
+        "links": [
+            "cb0d9ce4.bce98",
+            "d4271a51.fa5b2"
+        ],
+        "x": 1155,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "e50528a4.ea5ff8",
+        "type": "comment",
+        "z": "70e9484.17bd338",
+        "name": "Did the text include a color?",
+        "info": "This flow requires the \nnode-red-node-pi-neopixel \nnpm package.",
+        "x": 1260,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "700f737d.f7192c",
+        "type": "file",
+        "z": "70e9484.17bd338",
+        "name": "Save photo.jpg",
+        "filename": "/tmp/photo.jpg",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "x": 1140,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "9d0e6f95.1e4a4",
+        "type": "ui_template",
+        "z": "70e9484.17bd338",
+        "group": "b0c8bac4.0ed82",
+        "name": "Photo",
+        "order": 2,
+        "width": "12",
+        "height": "9",
+        "format": "<div ng-bind-html></div>\n<img width=\"300\" height=\"300\" alt=\"Watson Image\" src=\"data:image/jpg;base64,{{msg.payload}}\"/>",
+        "storeOutMessages": false,
+        "fwdInMessages": false,
+        "x": 1270,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6bd6e7fd.442d58",
+        "type": "comment",
+        "z": "70e9484.17bd338",
+        "name": "Remember to keep the .jpg < 2MB",
+        "info": "",
+        "x": 720,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "16d5426d.59f8c6",
+        "type": "comment",
+        "z": "70e9484.17bd338",
+        "name": "Reload picture into Node-RED Dashboard",
+        "info": "<script>\n    window.location.reload(false); \n</script>",
+        "x": 1180,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "aae555e0.d52c8",
+        "type": "camerapi-takephoto",
+        "z": "70e9484.17bd338",
+        "filemode": "0",
+        "filename": "",
+        "filedefpath": "1",
+        "filepath": "",
+        "fileformat": "jpeg",
+        "resolution": "1",
+        "rotation": "180",
+        "fliph": "0",
+        "flipv": "0",
+        "brightness": "50",
+        "contrast": "0",
+        "sharpness": "0",
+        "imageeffect": "none",
+        "name": "Take Pi Camera Photo",
+        "x": 760,
+        "y": 80,
+        "wires": [
+            [
+                "7691e54b.3eacb4"
+            ]
+        ]
+    },
+    {
+        "id": "a1d083d5.56316",
+        "type": "inject",
+        "z": "70e9484.17bd338",
+        "name": "Test TJBot RaspPi Photo",
+        "topic": "",
+        "payload": "0",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 250,
+        "y": 140,
+        "wires": [
+            [
+                "c924c159.d0a2a"
+            ]
+        ]
+    },
+    {
+        "id": "c924c159.d0a2a",
+        "type": "function",
+        "z": "70e9484.17bd338",
+        "name": "Set Photo File name",
+        "func": "// Set msg.filemode=\"0\" for no file and buffer mode - \n// puts the picture into msg.payload as an raw binary object\n\n// Override msg.filename with the filename\n// Override msg.filepath with the filepath\n\nmsg.filemode=\"0\";\nmsg.filename=\"photo.jpg\";\nmsg.filepath=\"/tmp\";\nmsg.payload=\"0\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 520,
+        "y": 80,
+        "wires": [
+            [
+                "aae555e0.d52c8"
+            ]
+        ]
+    },
+    {
+        "id": "1df704fe.0c0e9b",
+        "type": "ui_button",
+        "z": "70e9484.17bd338",
+        "name": "",
+        "group": "b0c8bac4.0ed82",
+        "order": 1,
+        "width": "6",
+        "height": "1",
+        "label": "Take a TJBot Raspberry Pi Camera Photo",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "x": 200,
+        "y": 80,
+        "wires": [
+            [
+                "c924c159.d0a2a"
+            ]
+        ]
+    },
+    {
+        "id": "e0cb730e.35e598",
+        "type": "ui_button",
+        "z": "70e9484.17bd338",
+        "name": "",
+        "group": "b0c8bac4.0ed82",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "label": "Ask Watson to Read this Photo",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "",
+        "x": 170,
+        "y": 300,
+        "wires": [
+            [
+                "4af2f696.d60058"
+            ]
+        ]
+    },
+    {
+        "id": "489a572c.76b458",
+        "type": "comment",
+        "z": "70e9484.17bd338",
+        "name": "Text Extraction",
+        "info": "",
+        "x": 120,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "d67437aa.24ee78",
+        "type": "comment",
+        "z": "70e9484.17bd338",
+        "name": "Image Classification",
+        "info": "",
+        "x": 130,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "f39addb7.65178",
+        "type": "base64",
+        "z": "70e9484.17bd338",
+        "name": "Encode",
+        "x": 1120,
+        "y": 160,
+        "wires": [
+            [
+                "9d0e6f95.1e4a4"
+            ]
+        ]
+    },
+    {
+        "id": "8a19d63d.f9e658",
+        "type": "debug",
+        "z": "70e9484.17bd338",
+        "name": "What did Watson find?",
+        "active": true,
+        "console": "false",
+        "complete": "template",
+        "x": 1240,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "bd975bc5.34e9e8",
+        "type": "ui_template",
+        "z": "70e9484.17bd338",
+        "group": "d24ce354.76f68",
+        "name": "",
+        "order": 5,
+        "width": "9",
+        "height": "12",
+        "format": "<div ng-bind-html=\"msg.template\"></div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "x": 1200,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "13454488.01f9c3",
+        "type": "visual-recognition-v3",
+        "z": "70e9484.17bd338",
+        "name": "",
+        "apikey": "a1453ae3a7cb0afd5c5add5a90d8f82ae517f2ff",
+        "image-feature": "classifyImage",
+        "lang": "en",
+        "x": 770,
+        "y": 380,
+        "wires": [
+            [
+                "38cae550.27f6da",
+                "af1a4df9.99b64"
+            ]
+        ]
+    },
+    {
+        "id": "38cae550.27f6da",
+        "type": "function",
+        "z": "70e9484.17bd338",
+        "name": "Process Results",
+        "func": "if (typeof msg.result == 'undefined') {\n    return null;\n}\n\n// Text Extraction\nif (typeof msg.result.images[0].text != 'undefined') {\n    var image_text = msg.result.images[0].text;\n    msg.payload = image_text;\n    msg.template = image_text;\n    if( image_text.length >0 ) {\n       msg.template= \"Watson found the words: \"+image_text;\n    }\n    return msg;\n}\n\nvar bestcolor = -1;\nvar colorscore = 0;\nvar c_id = 0;\nvar say = \"\";\nvar item;\n\nfor ( c_id=0; c_id < (msg.result.images[0].classifiers.length); c_id++ ){\n    // find the best color, if any\n    for( i =0; i<(msg.result.images[0].classifiers[c_id].classes.length); i++ ){\n      var object = msg.result.images[0].classifiers[c_id].classes[i].class;\n      if ( object.includes(\"color\") ) {\n        if( msg.result.images[0].classifiers[c_id].classes[i].score > colorscore){\n            bestcolor = i;\n            colorscore = msg.result.images[0].classifiers[c_id].classes[i].score;\n        }\n      }\n    }\n \n    var bestItem = 0;\n    var itemScore = 0;\n    for( i =0; i<(msg.result.images[0].classifiers[c_id].classes.length); i++ ){\n      var object = msg.result.images[0].classifiers[c_id].classes[i].class;\n      if ( !object.includes(\"color\") ) {\n        if( msg.result.images[0].classifiers[c_id].classes[i].score > itemScore){\n            bestItem = i;\n            itemScore =  msg.result.images[0].classifiers[c_id].classes[i].score;\n        }\n      }\n    }\n \n     if( bestcolor != \"-1\") {\n        // found a color\n        item = msg.result.images[0].classifiers[c_id].classes[bestcolor].class + \" \" + msg.result.images[0].classifiers[c_id].classes[bestItem].class;\n        bestcolor = -1;\n    } else {\n       item = msg.result.images[0].classifiers[c_id].classes[bestItem].class;\n    }\n//    say = say + \" Watson's \" + msg.result.images[0].classifiers[c_id].name + \" classifier thinks this picture contains a \" + item +\".\";\n    say = say + \" Watson thinks this picture contains a \" + item +\".\";\n}\nmsg.payload =  say;\n\nvar picInfo = msg.result.images[0].classifiers[0].classes;\nvar arrayLength = picInfo.length;\n\nmsg.template=\"<style>h4 { text-align: center; margin: 10px; }\";\nmsg.template=msg.template+\"table {    width: 440px;    margin-top: 10px; }\";\nmsg.template=msg.template+\"th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; background-color: #FFFFFF; width: 50%;}\";\nmsg.template=msg.template+\".classifier {background-color: rgb(85,150,230);text-align: center;}\";\nmsg.template=msg.template+\".title { background-color:LightGrey;}</style>\";\n\nmsg.template=msg.template+\"<h2>\"+say+\"</h2><table span=100%><tr><th>Class</th><th>Confidence</th></tr>\";\nfor (var i = 0; i < arrayLength; i++) {\n  msg.template = msg.template + \"<tr><td>\" + picInfo[i].class + \"</td><td>\" + picInfo[i].score + \"</td></tr>\";\n}\nmsg.template = msg.template + \"</table>\"\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1000,
+        "y": 380,
+        "wires": [
+            [
+                "bd975bc5.34e9e8",
+                "8a19d63d.f9e658",
+                "258d44c2.0366ac"
+            ]
+        ]
+    },
+    {
+        "id": "6c822a19.e47dbc",
+        "type": "ui_button",
+        "z": "70e9484.17bd338",
+        "name": "",
+        "group": "b0c8bac4.0ed82",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "label": "Ask Watson to Summarize this Photo",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "{\"params\":{\"detect_mode\":\"classify\"}}",
+        "payloadType": "json",
+        "topic": "",
+        "x": 190,
+        "y": 460,
+        "wires": [
+            [
+                "694fc962.c53218"
+            ]
+        ]
+    },
+    {
+        "id": "9dec9dab.74e9c8",
+        "type": "file in",
+        "z": "70e9484.17bd338",
+        "name": "photo.jpg",
+        "filename": "/tmp/photo.jpg",
+        "format": "",
+        "x": 600,
+        "y": 380,
+        "wires": [
+            [
+                "13454488.01f9c3"
+            ]
+        ]
+    },
+    {
+        "id": "5e542eeb.585e9",
+        "type": "comment",
+        "z": "70e9484.17bd338",
+        "name": "Take Photos from a Raspberry Pi Camera",
+        "info": "If you add a Raspberry Pi Camera to your TJBot,\nhe can \"see\" and take Photos through his \n\"eye\" cutout.\n\nThis Node-RED flow requires the\nnode-red-contrib-camerapi npm package.\n\nDon't forget to enable the Camera in the \nRaspberry Pi Configuration utility.",
+        "x": 200,
+        "y": 38,
+        "wires": []
+    },
+    {
+        "id": "c243831d.c8bd18",
+        "type": "switch",
+        "z": "70e9484.17bd338",
+        "name": "SelectColor",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "yellow",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "red",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "blue",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "green",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "purple",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "pink",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "party",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 8,
+        "x": 390,
+        "y": 640,
+        "wires": [
+            [
+                "e0e17f08.937bc",
+                "c2f45a7d.9f8d7"
+            ],
+            [
+                "292280e7.11a168"
+            ],
+            [
+                "537241dc.c25338"
+            ],
+            [
+                "cf9db036.6c205"
+            ],
+            [
+                "9c9019ca.1c164"
+            ],
+            [
+                "54e4ddeb.14c12c"
+            ],
+            [
+                "146a7f62.615939"
+            ],
+            [
+                "4141f463.872d84"
+            ]
+        ]
+    },
+    {
+        "id": "e20de8f7.f964b8",
+        "type": "rpi-neopixels",
+        "z": "70e9484.17bd338",
+        "name": "Turn on light",
+        "pixels": "1",
+        "bgnd": "",
+        "fgnd": "",
+        "wipe": "40",
+        "mode": "pcent",
+        "rgb": "rgb",
+        "x": 1030,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "87c98b5e.77e9f8",
+        "type": "debug",
+        "z": "70e9484.17bd338",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 1030,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "292280e7.11a168",
+        "type": "change",
+        "z": "70e9484.17bd338",
+        "name": "Red Color",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0,255,0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 690,
+        "y": 560,
+        "wires": [
+            [
+                "87c98b5e.77e9f8",
+                "e20de8f7.f964b8"
+            ]
+        ]
+    },
+    {
+        "id": "cf9db036.6c205",
+        "type": "change",
+        "z": "70e9484.17bd338",
+        "name": "Green Color",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "255,0,0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 690,
+        "y": 640,
+        "wires": [
+            [
+                "87c98b5e.77e9f8",
+                "e20de8f7.f964b8"
+            ]
+        ]
+    },
+    {
+        "id": "537241dc.c25338",
+        "type": "change",
+        "z": "70e9484.17bd338",
+        "name": "Blue Color",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0,0,255",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 690,
+        "y": 600,
+        "wires": [
+            [
+                "e20de8f7.f964b8",
+                "87c98b5e.77e9f8"
+            ]
+        ]
+    },
+    {
+        "id": "e0e17f08.937bc",
+        "type": "change",
+        "z": "70e9484.17bd338",
+        "name": "Yellow Color",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "255,255,0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 690,
+        "y": 520,
+        "wires": [
+            [
+                "87c98b5e.77e9f8",
+                "e20de8f7.f964b8"
+            ]
+        ]
+    },
+    {
+        "id": "9c9019ca.1c164",
+        "type": "change",
+        "z": "70e9484.17bd338",
+        "name": "Purple Color",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "44,116,163",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 690,
+        "y": 680,
+        "wires": [
+            [
+                "e20de8f7.f964b8",
+                "87c98b5e.77e9f8"
+            ]
+        ]
+    },
+    {
+        "id": "4141f463.872d84",
+        "type": "change",
+        "z": "70e9484.17bd338",
+        "name": "Off - Other",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0,0,0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 690,
+        "y": 880,
+        "wires": [
+            [
+                "e20de8f7.f964b8",
+                "87c98b5e.77e9f8"
+            ]
+        ]
+    },
+    {
+        "id": "c2f45a7d.9f8d7",
+        "type": "trigger",
+        "z": "70e9484.17bd338",
+        "op1": "40",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "3",
+        "extend": false,
+        "units": "s",
+        "reset": "",
+        "name": "",
+        "x": 700,
+        "y": 480,
+        "wires": [
+            [
+                "d31e9aa5.83894"
+            ]
+        ]
+    },
+    {
+        "id": "d31e9aa5.83894",
+        "type": "rpi-gpio out",
+        "z": "70e9484.17bd338",
+        "name": "",
+        "pin": "37",
+        "set": "",
+        "level": "0",
+        "out": "pwm",
+        "x": 1020,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "54e4ddeb.14c12c",
+        "type": "change",
+        "z": "70e9484.17bd338",
+        "name": "Pink Color",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "8,253,222",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 690,
+        "y": 720,
+        "wires": [
+            [
+                "e20de8f7.f964b8",
+                "87c98b5e.77e9f8"
+            ]
+        ]
+    },
+    {
+        "id": "d4271a51.fa5b2",
+        "type": "link in",
+        "z": "70e9484.17bd338",
+        "name": "",
+        "links": [
+            "258d44c2.0366ac"
+        ],
+        "x": 175,
+        "y": 800,
+        "wires": [
+            [
+                "c243831d.c8bd18",
+                "3706477a.9fd508",
+                "b7033a22.3f51c8"
+            ]
+        ]
+    },
+    {
+        "id": "146a7f62.615939",
+        "type": "function",
+        "z": "70e9484.17bd338",
+        "name": "Party!",
+        "func": "var count = flow.get('count') || 0;\n\nif( count < 20 ) {\n   // Generate a random color and set the NeoPixel LED\n    msg.payload = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6); \n    count += 1;\n    flow.set('count',count);\n        msg.count = count;\n    return [msg,msg];\n} else {\n    count = 0;\n    flow.set('count',count);\n    return [msg,null];\n}\n",
+        "outputs": "2",
+        "noerr": 0,
+        "x": 690,
+        "y": 760,
+        "wires": [
+            [
+                "e20de8f7.f964b8"
+            ],
+            [
+                "34a5735f.446844"
+            ]
+        ]
+    },
+    {
+        "id": "34a5735f.446844",
+        "type": "delay",
+        "z": "70e9484.17bd338",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "0.3",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 690,
+        "y": 840,
+        "wires": [
+            [
+                "146a7f62.615939"
+            ]
+        ]
+    },
+    {
+        "id": "694fc962.c53218",
+        "type": "change",
+        "z": "70e9484.17bd338",
+        "name": "Classify Image",
+        "rules": [
+            {
+                "t": "set",
+                "p": "params.detect_mode",
+                "pt": "msg",
+                "to": "classify",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 440,
+        "y": 460,
+        "wires": [
+            [
+                "9dec9dab.74e9c8"
+            ]
+        ]
+    },
+    {
+        "id": "4af2f696.d60058",
+        "type": "change",
+        "z": "70e9484.17bd338",
+        "name": "Extract Text",
+        "rules": [
+            {
+                "t": "set",
+                "p": "params.detect_mode",
+                "pt": "msg",
+                "to": "text",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 430,
+        "y": 300,
+        "wires": [
+            [
+                "9dec9dab.74e9c8"
+            ]
+        ]
+    },
+    {
+        "id": "5c8daa48.7b6b84",
+        "type": "comment",
+        "z": "70e9484.17bd338",
+        "name": "node-red-node-pi-neopixel dependency",
+        "info": "This flow requires the\n  node-red-node-pi-neopixel\nfor the Raspberry Pi NeoPixel GPIO node.\nYou can either \n  $ sudo npm -g install node-red-node-pi-neopixel\n  and restart the Node-RED service\nor install it from Node-RED Manage Palette.",
+        "x": 1110,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "cd570470.1e525",
+        "type": "comment",
+        "z": "70e9484.17bd338",
+        "name": "node-red-contrib-camerapi dependency",
+        "info": "This flow requires\n  node-red-contrib-camerapi\n\nYou can either \n  $ sudo npm -g install node-red-contrib-camerapi\n  and restart the Node-RED service\nor install it from Node-RED Manage Palette.",
+        "x": 740,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "f6dde4ae.ccacc8",
+        "type": "comment",
+        "z": "70e9484.17bd338",
+        "name": "node-red-node-watson dependency",
+        "info": "This flow requires the\n  node-red-node-watson@0.5.10 or higher\nfor the following Watson nodes:\n  Visual Recognition\n\nYou can either \n  $ sudo npm -g install node-red-node-watson\n  and restart the Node-RED service\nor install it from Node-RED Manage Palette.",
+        "x": 740,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "5d93586.8fc0928",
+        "type": "comment",
+        "z": "70e9484.17bd338",
+        "name": "Paste API keys for Visual Recognition",
+        "info": "1. Log into Bluemix\n2. Create an instance of the \nWatson Visual Recognition service.\n3. Visit the Service Credentials tab\n4. Click on View Credentials\n5. Copy/Paste the password and username into\nthis Node-RED node.",
+        "x": 730,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "f798467d.4600f",
+        "type": "comment",
+        "z": "70e9484.17bd338",
+        "name": "node-red-node-base64 dependency",
+        "info": "This flow requires\n  node-red-node-base64\n  \nYou can either \n  $ sudo npm -g install node-red-node-base64\n  and restart the Node-RED service\nor install it from Node-RED Manage Palette.",
+        "x": 1200,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "3706477a.9fd508",
+        "type": "watson-text-to-speech",
+        "z": "70e9484.17bd338",
+        "name": "",
+        "lang": "en-US",
+        "langhidden": "en-US",
+        "langcustom": "NoCustomisationSetting",
+        "langcustomhidden": "",
+        "voice": "en-US_AllisonVoice",
+        "voicehidden": "en-US_AllisonVoice",
+        "format": "audio/wav",
+        "password": "5824BY7NvNkT",
+        "payload-response": true,
+        "default-endpoint": true,
+        "service-endpoint": "",
+        "x": 400,
+        "y": 980,
+        "wires": [
+            [
+                "595eed35.71fde4",
+                "3f5ad091.f50748"
+            ]
+        ]
+    },
+    {
+        "id": "3f5ad091.f50748",
+        "type": "play audio",
+        "z": "70e9484.17bd338",
+        "name": "",
+        "voice": "",
+        "x": 650,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "ee152924.b732e",
+        "type": "comment",
+        "z": "70e9484.17bd338",
+        "name": "node-red-contrib-play-audio dependency",
+        "info": "This flow requires the\n  node-red-contrib-play-audio\nfor the Browser play audio node.\nYou can either \n  $ sudo npm -g install node-red-contrib-play-audio\n  and restart the Node-RED service\nor install it from Node-RED Manage Palette.",
+        "x": 740,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "850adeca.858798",
+        "type": "comment",
+        "z": "70e9484.17bd338",
+        "name": "Paste API keys for Text to Speech",
+        "info": "1. Log into Bluemix\n2. Create an instance of the \nWatson Text to Speech service.\n3. Visit the Service Credentials tab\n4. Click on View Credentials\n5. Copy/Paste the password and username into\nthis Node-RED node.",
+        "x": 400,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "3ddd041.d30eb7c",
+        "type": "comment",
+        "z": "70e9484.17bd338",
+        "name": "node-red-node-watson dependency",
+        "info": "This flow requires the\n  node-red-node-watson@0.5.10 or higher\nfor the following Watson nodes:\n  Text to Speech\n  Speech to Text\n  Tone Analyzer\n  Visual Recognition\n\nYou can either \n  $ sudo npm -g install node-red-node-watson\n  and restart the Node-RED service\nor install it from Node-RED Manage Palette.",
+        "x": 400,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "b7033a22.3f51c8",
+        "type": "debug",
+        "z": "70e9484.17bd338",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 390,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "595eed35.71fde4",
+        "type": "speakerpi-output",
+        "z": "70e9484.17bd338",
+        "choose": "filebased",
+        "filename": "",
+        "channels": "1",
+        "bitdepth": "8",
+        "samplerate": "11025",
+        "name": "",
+        "x": 680,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "4e80cf0.07a21b",
+        "type": "comment",
+        "z": "70e9484.17bd338",
+        "name": "node-red-contrib-speakerpi dependency",
+        "info": "This flow requires the\n  node-red-contrib-speakerpi\nfor the Speaker Pi node.\nYou can either \n  $ sudo npm -g install node-red-contrib-speakerpi\n  and restart the Node-RED service\nor install it from Node-RED Manage Palette.",
+        "x": 740,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "b0c8bac4.0ed82",
+        "type": "ui_group",
+        "z": "",
+        "name": "Watson Visual Recognition",
+        "tab": "f228a004.90cbc8",
+        "order": 1,
+        "disp": true,
+        "width": "12"
+    },
+    {
+        "id": "d24ce354.76f68",
+        "type": "ui_group",
+        "z": "",
+        "name": "Results",
+        "tab": "f228a004.90cbc8",
+        "order": 2,
+        "disp": true,
+        "width": "9"
+    },
+    {
+        "id": "f228a004.90cbc8",
+        "type": "ui_tab",
+        "z": "",
+        "name": "TJBot Cam",
+        "icon": "dashboard",
+        "order": 3
+    }
+]

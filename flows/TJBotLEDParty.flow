@@ -1,0 +1,92 @@
+[
+    {
+        "id": "baa58208.328d7",
+        "type": "tab",
+        "label": "TJBot LED Party",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "ab74e1eb.1f2078",
+        "type": "function",
+        "z": "baa58208.328d7",
+        "name": "Random Color Generation",
+        "func": "msg.payload = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 360,
+        "y": 120,
+        "wires": [
+            [
+                "5a7bd527.162a0c",
+                "595c7ad4.cbbda4"
+            ]
+        ]
+    },
+    {
+        "id": "9624ae41.47c308",
+        "type": "inject",
+        "z": "baa58208.328d7",
+        "name": "Trigger",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "0.3",
+        "crontab": "",
+        "once": true,
+        "x": 120,
+        "y": 120,
+        "wires": [
+            [
+                "ab74e1eb.1f2078"
+            ]
+        ]
+    },
+    {
+        "id": "5a7bd527.162a0c",
+        "type": "debug",
+        "z": "baa58208.328d7",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 610,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "595c7ad4.cbbda4",
+        "type": "rpi-neopixels",
+        "z": "baa58208.328d7",
+        "name": "",
+        "pixels": "1",
+        "bgnd": "",
+        "fgnd": "",
+        "wipe": "40",
+        "mode": "pcent",
+        "rgb": "rgb",
+        "x": 610,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "a711de7f.904a38",
+        "type": "comment",
+        "z": "baa58208.328d7",
+        "name": "Blink the TJBot NeoPixel with random party colors",
+        "info": "",
+        "x": 220,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "5e0f6356.23e8e4",
+        "type": "comment",
+        "z": "baa58208.328d7",
+        "name": "Disable this flow if you want TJBot to blink for other events",
+        "info": "If you are using Node-RED v0.17, you can click\non the Flow tab name and enable/disable flows.\n\nThis flow is simple / fun but monopolizes the\nLED.  If you want to use the TJBot NeoPixel\nfor other indicators, you'll want to disable this \nflow.",
+        "x": 250,
+        "y": 160,
+        "wires": []
+    }
+]

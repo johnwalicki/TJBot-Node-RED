@@ -1,0 +1,204 @@
+[
+    {
+        "id": "c2c6d8f9.edf8a8",
+        "type": "tab",
+        "label": "TJBot Weather!",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "8d7cc67f.bdc1e",
+        "type": "inject",
+        "z": "c2c6d8f9.edf8a8",
+        "name": "Start",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "3000",
+        "crontab": "",
+        "once": false,
+        "x": 150,
+        "y": 100,
+        "wires": [
+            [
+                "623eb82d.10f6b"
+            ]
+        ]
+    },
+    {
+        "id": "7eb06420.81678c",
+        "type": "comment",
+        "z": "c2c6d8f9.edf8a8",
+        "name": "TJ Bot Weather report every 10 minutes",
+        "info": "Really should be deployed locally on \nthe TJ Bot Raspberry Pi",
+        "x": 220,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "7e7a2264.ca4ce4",
+        "type": "change",
+        "z": "c2c6d8f9.edf8a8",
+        "name": "Forecast",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.forecast",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 500,
+        "y": 100,
+        "wires": [
+            [
+                "5af82f7e.614148"
+            ]
+        ]
+    },
+    {
+        "id": "5af82f7e.614148",
+        "type": "watson-text-to-speech",
+        "z": "c2c6d8f9.edf8a8",
+        "name": "",
+        "lang": "en-US",
+        "langhidden": "en-US",
+        "langcustom": "NoCustomisationSetting",
+        "langcustomhidden": "",
+        "voice": "en-US_AllisonVoice",
+        "voicehidden": "en-US_AllisonVoice",
+        "format": "audio/wav",
+        "password": "5824BY7NvNkT",
+        "payload-response": true,
+        "default-endpoint": true,
+        "service-endpoint": "",
+        "x": 300,
+        "y": 260,
+        "wires": [
+            [
+                "83ae13b7.26a758",
+                "aadd93fe.d41b3"
+            ]
+        ]
+    },
+    {
+        "id": "623eb82d.10f6b",
+        "type": "wunderground",
+        "z": "c2c6d8f9.edf8a8",
+        "name": "",
+        "lon": "",
+        "lat": "",
+        "city": "New York",
+        "country": "NY",
+        "x": 320,
+        "y": 100,
+        "wires": [
+            [
+                "7e7a2264.ca4ce4",
+                "e2b9b695.10a4d"
+            ]
+        ]
+    },
+    {
+        "id": "e2b9b695.10a4d",
+        "type": "debug",
+        "z": "c2c6d8f9.edf8a8",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "payload.forecast",
+        "x": 540,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "aadd93fe.d41b3",
+        "type": "play audio",
+        "z": "c2c6d8f9.edf8a8",
+        "name": "",
+        "voice": "",
+        "x": 510,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "45d5e41c.32b15c",
+        "type": "comment",
+        "z": "c2c6d8f9.edf8a8",
+        "name": "node-red-contrib-play-audio dependency",
+        "info": "This flow requires the\n  node-red-contrib-play-audio\nfor the Browser play audio node.\nYou can either \n  $ sudo npm -g install node-red-contrib-play-audio\n  and restart the Node-RED service\nor install it from Node-RED Manage Palette.",
+        "x": 600,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "214203d0.54099c",
+        "type": "comment",
+        "z": "c2c6d8f9.edf8a8",
+        "name": "Paste API keys for Text to Speech",
+        "info": "1. Log into Bluemix\n2. Create an instance of the \nWatson Text to Speech service.\n3. Visit the Service Credentials tab\n4. Click on View Credentials\n5. Copy/Paste the password and username into\nthis Node-RED node.",
+        "x": 240,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "9eb01ab1.fd5a3",
+        "type": "comment",
+        "z": "c2c6d8f9.edf8a8",
+        "name": "node-red-node-watson dependency",
+        "info": "This flow requires the\n  node-red-node-watson@0.5.10 or higher\nfor the following Watson nodes:\n  Text to Speech\n  Speech to Text\n  Tone Analyzer\n  Visual Recognition\n\nYou can either \n  $ sudo npm -g install node-red-node-watson\n  and restart the Node-RED service\nor install it from Node-RED Manage Palette.",
+        "x": 240,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "e6b12364.d26508",
+        "type": "comment",
+        "z": "c2c6d8f9.edf8a8",
+        "name": "node-red-node-weather-underground dependency",
+        "info": "This flow requires\n  node-red-node-weather-underground\n\nYou can either \n  $ sudo npm -g install node-red-node-weather-underground\n  and restart the Node-RED service\nor install it from Node-RED Manage Palette.",
+        "x": 250,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "d4d6040.1ba3c8",
+        "type": "comment",
+        "z": "c2c6d8f9.edf8a8",
+        "name": "WeatherUnderground API",
+        "info": "Visit \n   https://www.wunderground.com/weather/api/\nto get yourself a free developer API key.",
+        "x": 170,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "83ae13b7.26a758",
+        "type": "speakerpi-output",
+        "z": "c2c6d8f9.edf8a8",
+        "choose": "filebased",
+        "filename": "",
+        "channels": "1",
+        "bitdepth": "8",
+        "samplerate": "11025",
+        "name": "",
+        "x": 540,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "352207a3.2125a8",
+        "type": "comment",
+        "z": "c2c6d8f9.edf8a8",
+        "name": "node-red-contrib-speakerpi dependency",
+        "info": "This flow requires the\n  node-red-contrib-speakerpi\nfor the Speaker Pi node.\nYou can either \n  $ sudo npm -g install node-red-contrib-speakerpi\n  and restart the Node-RED service\nor install it from Node-RED Manage Palette.",
+        "x": 600,
+        "y": 340,
+        "wires": []
+    }
+]

@@ -1,0 +1,739 @@
+[
+    {
+        "id": "478291da.a65398",
+        "type": "tab",
+        "label": "TJBot Speech ",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "a2e69d66.a297e",
+        "type": "watson-speech-to-text",
+        "z": "478291da.a65398",
+        "name": "",
+        "continuous": true,
+        "speakerlabels": false,
+        "lang": "en-US",
+        "langhidden": "en-US",
+        "langcustom": "NoCustomisationSetting",
+        "langcustomhidden": "",
+        "band": "BroadbandModel",
+        "bandhidden": "BroadbandModel",
+        "password": "pAJYZ8x4Ph7t",
+        "payload-response": true,
+        "default-endpoint": true,
+        "service-endpoint": "",
+        "x": 580,
+        "y": 180,
+        "wires": [
+            [
+                "c81b4474.f52d6",
+                "20c41241.99e6d6"
+            ]
+        ]
+    },
+    {
+        "id": "c81b4474.f52d6",
+        "type": "debug",
+        "z": "478291da.a65398",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "transcription",
+        "x": 830,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "20c41241.99e6d6",
+        "type": "switch",
+        "z": "478291da.a65398",
+        "name": "SelectColor",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "wave",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "yellow",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "red",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "blue",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "green",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "purple",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "pink",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "party",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "weather",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 10,
+        "x": 190,
+        "y": 460,
+        "wires": [
+            [
+                "ad311f1e.d2651"
+            ],
+            [
+                "3e5a42bd.023d96"
+            ],
+            [
+                "1d504375.260ecd"
+            ],
+            [
+                "e9ac1d51.676968"
+            ],
+            [
+                "3c802b26.7a1834"
+            ],
+            [
+                "1b1ddadf.880fed"
+            ],
+            [
+                "98c7e5b0.996cd"
+            ],
+            [
+                "ad311f1e.d2651",
+                "177b212d.7ca99f",
+                "aa287eb7.175218"
+            ],
+            [
+                "cb70e551.5a8a"
+            ],
+            [
+                "3cfd63dd.778984"
+            ]
+        ]
+    },
+    {
+        "id": "ad311f1e.d2651",
+        "type": "trigger",
+        "z": "478291da.a65398",
+        "op1": "40",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "3",
+        "extend": false,
+        "units": "s",
+        "reset": "",
+        "name": "",
+        "x": 400,
+        "y": 320,
+        "wires": [
+            [
+                "dade949b.0428b"
+            ]
+        ]
+    },
+    {
+        "id": "dade949b.0428b",
+        "type": "rpi-gpio out",
+        "z": "478291da.a65398",
+        "name": "",
+        "pin": "37",
+        "set": "",
+        "level": "0",
+        "out": "pwm",
+        "x": 680,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "bfd7cd56.d8109",
+        "type": "comment",
+        "z": "478291da.a65398",
+        "name": "Wave arm or Set LED Color",
+        "info": "",
+        "x": 320,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "8c9b969e.1fe13",
+        "type": "comment",
+        "z": "478291da.a65398",
+        "name": "Tell the TJBot to Wave or Set a Color or ask for the Weather Report",
+        "info": "",
+        "x": 600,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "da8b2a0f.4fe248",
+        "type": "rpi-neopixels",
+        "z": "478291da.a65398",
+        "name": "Set LED Color",
+        "pixels": "1",
+        "bgnd": "",
+        "fgnd": "",
+        "wipe": "40",
+        "mode": "pcent",
+        "rgb": "rgb",
+        "x": 700,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "1d504375.260ecd",
+        "type": "change",
+        "z": "478291da.a65398",
+        "name": "Red Color",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0,255,0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 400,
+        "wires": [
+            [
+                "da8b2a0f.4fe248"
+            ]
+        ]
+    },
+    {
+        "id": "3c802b26.7a1834",
+        "type": "change",
+        "z": "478291da.a65398",
+        "name": "Green Color",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "255,0,0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 480,
+        "wires": [
+            [
+                "da8b2a0f.4fe248"
+            ]
+        ]
+    },
+    {
+        "id": "e9ac1d51.676968",
+        "type": "change",
+        "z": "478291da.a65398",
+        "name": "Blue Color",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0,0,255",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 440,
+        "wires": [
+            [
+                "da8b2a0f.4fe248"
+            ]
+        ]
+    },
+    {
+        "id": "3e5a42bd.023d96",
+        "type": "change",
+        "z": "478291da.a65398",
+        "name": "Yellow Color",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "255,255,0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 360,
+        "wires": [
+            [
+                "da8b2a0f.4fe248"
+            ]
+        ]
+    },
+    {
+        "id": "1b1ddadf.880fed",
+        "type": "change",
+        "z": "478291da.a65398",
+        "name": "Purple Color",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "238,130,238",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 520,
+        "wires": [
+            [
+                "da8b2a0f.4fe248"
+            ]
+        ]
+    },
+    {
+        "id": "98c7e5b0.996cd",
+        "type": "change",
+        "z": "478291da.a65398",
+        "name": "Pink Color",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "255,192,203",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 560,
+        "wires": [
+            [
+                "da8b2a0f.4fe248"
+            ]
+        ]
+    },
+    {
+        "id": "ace8bc18.6c245",
+        "type": "comment",
+        "z": "478291da.a65398",
+        "name": "node-red-node-pi-neopixel dependency",
+        "info": "This flow requires the\n  node-red-node-pi-neopixel\nfor the Raspberry Pi NeoPixel GPIO node.\nYou can either \n  $ sudo npm -g install node-red-node-pi-neopixel\n  and restart the Node-RED service\nor install it from Node-RED Manage Palette.",
+        "x": 750,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "b9fc62df.676118",
+        "type": "comment",
+        "z": "478291da.a65398",
+        "name": "Paste API keys for Speech to Text",
+        "info": "1. Log into Bluemix\n2. Create an instance of the \nWatson Speech to Text service.\n3. Visit the Service Credentials tab\n4. Click on View Credentials\n5. Copy/Paste the password and username into\nthis Node-RED node.",
+        "x": 820,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "ad7d96ec.836c6",
+        "type": "comment",
+        "z": "478291da.a65398",
+        "name": "node-red-node-watson dependency",
+        "info": "This flow requires the\n  node-red-node-watson\nfor the following Watson nodes:\n  Speech to Text\n\nYou can either \n  $ sudo npm -g install node-red-node-watson\n  and restart the Node-RED service\nor install it from Node-RED Manage Palette.",
+        "x": 640,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "9f79b51e.e44298",
+        "type": "microPi",
+        "z": "478291da.a65398",
+        "name": "microPi",
+        "filename": "/home/pi/audio/demo.wav",
+        "domain": "http://localhost:1880",
+        "rate": "16000",
+        "bitwidth": "16",
+        "endian": "little",
+        "encoding": "signed-integer",
+        "channels": "2",
+        "silence": "10",
+        "debug": true,
+        "mode": "666",
+        "x": 400,
+        "y": 180,
+        "wires": [
+            [],
+            [
+                "a2e69d66.a297e"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "95752647.9edde",
+        "type": "inject",
+        "z": "478291da.a65398",
+        "name": "Click here to Start Recording",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 180,
+        "y": 160,
+        "wires": [
+            [
+                "9f79b51e.e44298"
+            ]
+        ]
+    },
+    {
+        "id": "2f0c485f.b18238",
+        "type": "inject",
+        "z": "478291da.a65398",
+        "name": "Click here to Stop Recording",
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 180,
+        "y": 200,
+        "wires": [
+            [
+                "9f79b51e.e44298"
+            ]
+        ]
+    },
+    {
+        "id": "3cfd63dd.778984",
+        "type": "change",
+        "z": "478291da.a65398",
+        "name": "Off - Other",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0,0,0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 740,
+        "wires": [
+            [
+                "da8b2a0f.4fe248"
+            ]
+        ]
+    },
+    {
+        "id": "177b212d.7ca99f",
+        "type": "function",
+        "z": "478291da.a65398",
+        "name": "Party!",
+        "func": "var count = flow.get('count') || 0;\n\nif( count < 50 ) {\n   // Generate a random color and set the NeoPixel LED\n    msg.payload = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6); \n    count += 1;\n    flow.set('count',count);\n        msg.count = count;\n    return [msg,msg];\n} else {\n    count = 0;\n    flow.set('count',count);\n    return [msg,null];\n}\n",
+        "outputs": "2",
+        "noerr": 0,
+        "x": 410,
+        "y": 640,
+        "wires": [
+            [
+                "da8b2a0f.4fe248"
+            ],
+            [
+                "ba62f9f7.9de94"
+            ]
+        ]
+    },
+    {
+        "id": "ba62f9f7.9de94",
+        "type": "delay",
+        "z": "478291da.a65398",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "0.3",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 410,
+        "y": 700,
+        "wires": [
+            [
+                "177b212d.7ca99f"
+            ]
+        ]
+    },
+    {
+        "id": "28e18775.294d28",
+        "type": "change",
+        "z": "478291da.a65398",
+        "name": "Forecast",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.forecast",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 620,
+        "y": 760,
+        "wires": [
+            [
+                "8c79e23b.bc341"
+            ]
+        ]
+    },
+    {
+        "id": "8c79e23b.bc341",
+        "type": "watson-text-to-speech",
+        "z": "478291da.a65398",
+        "name": "",
+        "lang": "en-US",
+        "langhidden": "en-US",
+        "langcustom": "NoCustomisationSetting",
+        "langcustomhidden": "",
+        "voice": "en-US_AllisonVoice",
+        "voicehidden": "en-US_AllisonVoice",
+        "format": "audio/wav",
+        "password": "5824BY7NvNkT",
+        "payload-response": true,
+        "default-endpoint": true,
+        "service-endpoint": "",
+        "x": 800,
+        "y": 600,
+        "wires": [
+            [
+                "bcf9ef7e.c6c16",
+                "2c64f0be.3363b8"
+            ]
+        ]
+    },
+    {
+        "id": "cb70e551.5a8a",
+        "type": "wunderground",
+        "z": "478291da.a65398",
+        "name": "",
+        "lon": "",
+        "lat": "",
+        "city": "New York",
+        "country": "NY",
+        "x": 420,
+        "y": 780,
+        "wires": [
+            [
+                "28e18775.294d28",
+                "9c39af6d.e322a8"
+            ]
+        ]
+    },
+    {
+        "id": "9c39af6d.e322a8",
+        "type": "debug",
+        "z": "478291da.a65398",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "payload.forecast",
+        "x": 660,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "2c64f0be.3363b8",
+        "type": "play audio",
+        "z": "478291da.a65398",
+        "name": "",
+        "voice": "",
+        "x": 990,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "d9fea796.f4d728",
+        "type": "comment",
+        "z": "478291da.a65398",
+        "name": "node-red-contrib-play-audio dependency",
+        "info": "This flow requires the\n  node-red-contrib-play-audio\nfor the Browser play audio node.\nYou can either \n  $ sudo npm -g install node-red-contrib-play-audio\n  and restart the Node-RED service\nor install it from Node-RED Manage Palette.",
+        "x": 1080,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "f2d5c89.245d138",
+        "type": "comment",
+        "z": "478291da.a65398",
+        "name": "Paste API keys for Text to Speech",
+        "info": "1. Log into Bluemix\n2. Create an instance of the \nWatson Text to Speech service.\n3. Visit the Service Credentials tab\n4. Click on View Credentials\n5. Copy/Paste the password and username into\nthis Node-RED node.",
+        "x": 740,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "4918a962.a978b8",
+        "type": "comment",
+        "z": "478291da.a65398",
+        "name": "node-red-node-watson dependency",
+        "info": "This flow requires the\n  node-red-node-watson@0.5.10 or higher\nfor the following Watson nodes:\n  Text to Speech\n  Speech to Text\n  Tone Analyzer\n  Visual Recognition\n\nYou can either \n  $ sudo npm -g install node-red-node-watson\n  and restart the Node-RED service\nor install it from Node-RED Manage Palette.",
+        "x": 740,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "e480e5a1.85e75",
+        "type": "comment",
+        "z": "478291da.a65398",
+        "name": "node-red-node-weather-underground dependency",
+        "info": "This flow requires\n  node-red-node-weather-underground\n\nYou can either \n  $ sudo npm -g install node-red-node-weather-underground\n  and restart the Node-RED service\nor install it from Node-RED Manage Palette.",
+        "x": 310,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "6c60ae3e.fe44e",
+        "type": "comment",
+        "z": "478291da.a65398",
+        "name": "WeatherUnderground API",
+        "info": "Visit \n   https://www.wunderground.com/weather/api/\nto get yourself a free developer API key.",
+        "x": 190,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "bcf9ef7e.c6c16",
+        "type": "speakerpi-output",
+        "z": "478291da.a65398",
+        "choose": "filebased",
+        "filename": "",
+        "channels": "1",
+        "bitdepth": "8",
+        "samplerate": "11025",
+        "name": "",
+        "x": 1020,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "aa287eb7.175218",
+        "type": "change",
+        "z": "478291da.a65398",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "TJ Bot is a party animal",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 600,
+        "wires": [
+            [
+                "8c79e23b.bc341"
+            ]
+        ]
+    },
+    {
+        "id": "2de52519.8b2292",
+        "type": "comment",
+        "z": "478291da.a65398",
+        "name": "node-red-contrib-speakerpi dependency",
+        "info": "This flow requires the\n  node-red-contrib-speakerpi\nfor the Speaker Pi node.\nYou can either \n  $ sudo npm -g install node-red-contrib-speakerpi\n  and restart the Node-RED service\nor install it from Node-RED Manage Palette.",
+        "x": 1080,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "4988f9e9.4c674",
+        "type": "comment",
+        "z": "478291da.a65398",
+        "name": "node-red-contrib-micropi dependency",
+        "info": "This flow requires the\n  node-red-contrib-micropi\nfor the Micro Pi node.\nYou can either \n  $ sudo npm -g install node-red-contrib-micropi\n  and restart the Node-RED service\nor install it from Node-RED Manage Palette.",
+        "x": 310,
+        "y": 120,
+        "wires": []
+    }
+]

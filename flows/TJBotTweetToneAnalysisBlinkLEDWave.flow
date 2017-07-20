@@ -1,0 +1,683 @@
+[
+    {
+        "id": "334e2379.6cddec",
+        "type": "tab",
+        "label": "TJBot Tweet Tone Analyzer",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "79105f05.b19938",
+        "type": "debug",
+        "z": "334e2379.6cddec",
+        "name": "Tone categories",
+        "active": false,
+        "console": "false",
+        "complete": "payload",
+        "x": 980,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "1d07fb27.73171d",
+        "type": "function",
+        "z": "334e2379.6cddec",
+        "name": "HighScore",
+        "func": "var emotions = [];\nemotions = msg.response.document_tone.tone_categories\n                .filter(function(c){\n                    if (c.category_id == \"emotion_tone\")\n                    {return c; }\n                    })[0].tones;\n                    \n//rename tone_id to topic\nvar myscore =  0;     \nvar mynewmsg ={};\n//msg.payload = emotions;\nfor (var i=0; i<emotions.length; i++) {\n\n    if(emotions[i].score > myscore)\n    {\n        msg.payload = emotions[i].score;\n        msg.topic = emotions[i].tone_name;\n        myscore = emotions[i].score;\n    }\n //   node.send(msg);\n}\nmynewmsg = msg;\nreturn mynewmsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 750,
+        "y": 480,
+        "wires": [
+            [
+                "1d2f0dd9.6b6252",
+                "3d434c51.380d44"
+            ]
+        ]
+    },
+    {
+        "id": "1d2f0dd9.6b6252",
+        "type": "debug",
+        "z": "334e2379.6cddec",
+        "name": "Score",
+        "active": false,
+        "console": "false",
+        "complete": "topic",
+        "x": 950,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "a9a59f96.191b38",
+        "type": "inject",
+        "z": "334e2379.6cddec",
+        "name": "Test",
+        "topic": "",
+        "payload": "I hate boring demos",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 330,
+        "y": 440,
+        "wires": [
+            [
+                "1c1a87c.9b79af8"
+            ]
+        ]
+    },
+    {
+        "id": "770cba42.9b1d74",
+        "type": "debug",
+        "z": "334e2379.6cddec",
+        "name": "Print msg.response",
+        "active": false,
+        "console": "false",
+        "complete": "response",
+        "x": 770,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "1c1a87c.9b79af8",
+        "type": "watson-tone-analyzer-v3",
+        "z": "334e2379.6cddec",
+        "name": "Analyze Tone",
+        "tones": "emotion",
+        "sentences": "true",
+        "contentType": "false",
+        "default-endpoint": true,
+        "service-endpoint": "",
+        "x": 560,
+        "y": 440,
+        "wires": [
+            [
+                "1d07fb27.73171d",
+                "770cba42.9b1d74",
+                "65818bec.45ae14"
+            ]
+        ]
+    },
+    {
+        "id": "65818bec.45ae14",
+        "type": "change",
+        "z": "334e2379.6cddec",
+        "name": "tone_categories",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "response.document_tone.tone_categories",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 760,
+        "y": 440,
+        "wires": [
+            [
+                "79105f05.b19938"
+            ]
+        ]
+    },
+    {
+        "id": "23514528.5617da",
+        "type": "twitter in",
+        "z": "334e2379.6cddec",
+        "twitter": "",
+        "tags": "",
+        "user": "false",
+        "name": "",
+        "topic": "tweets",
+        "inputs": 1,
+        "x": 90,
+        "y": 80,
+        "wires": [
+            [
+                "c98c8093.e26eb",
+                "e5b0bb32.09f6d8",
+                "f26d50f1.1378c"
+            ]
+        ]
+    },
+    {
+        "id": "c98c8093.e26eb",
+        "type": "debug",
+        "z": "334e2379.6cddec",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "tweet.text",
+        "x": 340,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "3ae7cf1.7cf623",
+        "type": "inject",
+        "z": "334e2379.6cddec",
+        "name": "Happy test",
+        "topic": "",
+        "payload": "every one is awesome",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 100,
+        "y": 200,
+        "wires": [
+            [
+                "f26d50f1.1378c"
+            ]
+        ]
+    },
+    {
+        "id": "f26d50f1.1378c",
+        "type": "change",
+        "z": "334e2379.6cddec",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "tweet.text",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 200,
+        "wires": [
+            [
+                "1c1a87c.9b79af8",
+                "e22fce8e.0c46c8",
+                "58557191.130b6"
+            ]
+        ]
+    },
+    {
+        "id": "77370b4d.2bf994",
+        "type": "inject",
+        "z": "334e2379.6cddec",
+        "name": "Sadness test",
+        "topic": "",
+        "payload": "This is miserable and sad",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 110,
+        "y": 240,
+        "wires": [
+            [
+                "f26d50f1.1378c"
+            ]
+        ]
+    },
+    {
+        "id": "ff262c7a.ff6b38",
+        "type": "inject",
+        "z": "334e2379.6cddec",
+        "name": "Angry test",
+        "topic": "",
+        "payload": "I hate boring demos",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 100,
+        "y": 280,
+        "wires": [
+            [
+                "f26d50f1.1378c"
+            ]
+        ]
+    },
+    {
+        "id": "e5b0bb32.09f6d8",
+        "type": "debug",
+        "z": "334e2379.6cddec",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "payload",
+        "x": 330,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "e22fce8e.0c46c8",
+        "type": "debug",
+        "z": "334e2379.6cddec",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 550,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "3d434c51.380d44",
+        "type": "switch",
+        "z": "334e2379.6cddec",
+        "name": "SelectColor",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Joy",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Fear",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Sadness",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Anger",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "Disgust",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 6,
+        "x": 550,
+        "y": 740,
+        "wires": [
+            [
+                "aa1f9fd9.7fcb5",
+                "305204b6.1ec744"
+            ],
+            [
+                "a06ee465.7767d"
+            ],
+            [
+                "42a81867.7a3e18"
+            ],
+            [
+                "b22493c0.2be5e"
+            ],
+            [
+                "d6afc2ef.f97f6"
+            ],
+            [
+                "5cc57399.82b254"
+            ]
+        ]
+    },
+    {
+        "id": "58557191.130b6",
+        "type": "watson-text-to-speech",
+        "z": "334e2379.6cddec",
+        "name": "",
+        "lang": "en-US",
+        "langhidden": "en-US",
+        "langcustom": "NoCustomisationSetting",
+        "langcustomhidden": "",
+        "voice": "en-US_MichaelVoice",
+        "voicehidden": "en-US_MichaelVoice",
+        "format": "audio/wav",
+        "password": "5824BY7NvNkT",
+        "payload-response": true,
+        "default-endpoint": true,
+        "service-endpoint": "",
+        "x": 560,
+        "y": 200,
+        "wires": [
+            [
+                "942f59e7.29d548",
+                "acf6c436.872de8"
+            ]
+        ]
+    },
+    {
+        "id": "aa1f9fd9.7fcb5",
+        "type": "trigger",
+        "z": "334e2379.6cddec",
+        "op1": "40",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "3",
+        "extend": false,
+        "units": "s",
+        "reset": "",
+        "name": "",
+        "x": 760,
+        "y": 600,
+        "wires": [
+            [
+                "2f7a25d2.702d72"
+            ]
+        ]
+    },
+    {
+        "id": "25ec9cb2.c2e74c",
+        "type": "comment",
+        "z": "334e2379.6cddec",
+        "name": "Paste API keys for Text to Speech and Tone Analyzer",
+        "info": "1. Log into Bluemix\n2. Create an instance of the \nWatson Text to Speech service.\n3. Visit the Service Credentials tab\n4. Click on View Credentials\n5. Copy/Paste the password and username into\nthis Node-RED node.\n\n6. Create an instance of the \nWatson Tone Analyzer service.\n7. Visit the Service Credentials tab\n8. Click on View Credentials\n9. Copy/Paste the password and username into\nthis Node-RED node.",
+        "x": 660,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "3b94a318.303fd4",
+        "type": "comment",
+        "z": "334e2379.6cddec",
+        "name": "Pick a #hashtag to follow",
+        "info": "",
+        "x": 150,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "9acac7.75132538",
+        "type": "comment",
+        "z": "334e2379.6cddec",
+        "name": "Wave arm when there are Joyful tweets",
+        "info": "",
+        "x": 950,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "38d2112a.14be56",
+        "type": "comment",
+        "z": "334e2379.6cddec",
+        "name": "Extract highest emotion",
+        "info": "",
+        "x": 660,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "4421ada5.a66d44",
+        "type": "comment",
+        "z": "334e2379.6cddec",
+        "name": "Blink the TJBot LED based on Twitter sentiment and wave his arm on Joyful tweets ",
+        "info": "",
+        "x": 630,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "d3e30375.a49268",
+        "type": "rpi-neopixels",
+        "z": "334e2379.6cddec",
+        "name": "Set LED Color",
+        "pixels": "1",
+        "bgnd": "",
+        "fgnd": "",
+        "wipe": "40",
+        "mode": "pcent",
+        "rgb": "rgb",
+        "x": 1100,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "a06ee465.7767d",
+        "type": "change",
+        "z": "334e2379.6cddec",
+        "name": "Red Color - Fear",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0,255,0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 790,
+        "y": 680,
+        "wires": [
+            [
+                "d3e30375.a49268"
+            ]
+        ]
+    },
+    {
+        "id": "b22493c0.2be5e",
+        "type": "change",
+        "z": "334e2379.6cddec",
+        "name": "Green Color - Anger",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "255,0,0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 800,
+        "y": 760,
+        "wires": [
+            [
+                "d3e30375.a49268"
+            ]
+        ]
+    },
+    {
+        "id": "42a81867.7a3e18",
+        "type": "change",
+        "z": "334e2379.6cddec",
+        "name": "Blue Color - Sadness",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0,0,255",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 800,
+        "y": 720,
+        "wires": [
+            [
+                "d3e30375.a49268"
+            ]
+        ]
+    },
+    {
+        "id": "305204b6.1ec744",
+        "type": "change",
+        "z": "334e2379.6cddec",
+        "name": "Yellow Color - Joy",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "255,255,0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 790,
+        "y": 640,
+        "wires": [
+            [
+                "d3e30375.a49268"
+            ]
+        ]
+    },
+    {
+        "id": "d6afc2ef.f97f6",
+        "type": "change",
+        "z": "334e2379.6cddec",
+        "name": "Purple Color - Disgust",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "238,130,238",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 800,
+        "y": 800,
+        "wires": [
+            [
+                "d3e30375.a49268"
+            ]
+        ]
+    },
+    {
+        "id": "5cc57399.82b254",
+        "type": "change",
+        "z": "334e2379.6cddec",
+        "name": "Off - Other",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0,0,0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 770,
+        "y": 840,
+        "wires": [
+            [
+                "d3e30375.a49268"
+            ]
+        ]
+    },
+    {
+        "id": "2f7a25d2.702d72",
+        "type": "rpi-gpio out",
+        "z": "334e2379.6cddec",
+        "name": "",
+        "pin": "37",
+        "set": "",
+        "level": "0",
+        "out": "pwm",
+        "x": 1080,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "d9be9262.9d1aa8",
+        "type": "comment",
+        "z": "334e2379.6cddec",
+        "name": "node-red-node-pi-neopixel dependency",
+        "info": "This flow requires the\n  node-red-node-pi-neopixel\nfor the Raspberry Pi NeoPixel GPIO node.\nYou can either \n  $ sudo npm -g install node-red-node-pi-neopixel\n  and restart the Node-RED service\nor install it from Node-RED Manage Palette.",
+        "x": 1150,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "618da55b.9fe70c",
+        "type": "comment",
+        "z": "334e2379.6cddec",
+        "name": "node-red-node-watson dependency",
+        "info": "This flow requires the\n  node-red-node-watson@0.5.10 or higher\nfor the following Watson nodes:\n  Text to Speech\n  Speech to Text\n  Tone Analyzer\n  Visual Recognition\n\nYou can either \n  $ sudo npm -g install node-red-node-watson\n  and restart the Node-RED service\nor install it from Node-RED Manage Palette.",
+        "x": 620,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "acf6c436.872de8",
+        "type": "play audio",
+        "z": "334e2379.6cddec",
+        "name": "",
+        "voice": "",
+        "x": 890,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "e8366cc7.5624c",
+        "type": "comment",
+        "z": "334e2379.6cddec",
+        "name": "node-red-contrib-play-audio dependency",
+        "info": "This flow requires the\n  node-red-contrib-play-audio\nfor the Browser play audio node.\nYou can either \n  $ sudo npm -g install node-red-contrib-play-audio\n  and restart the Node-RED service\nor install it from Node-RED Manage Palette.",
+        "x": 980,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "942f59e7.29d548",
+        "type": "speakerpi-output",
+        "z": "334e2379.6cddec",
+        "choose": "filebased",
+        "filename": "",
+        "channels": "1",
+        "bitdepth": "8",
+        "samplerate": "11025",
+        "name": "",
+        "x": 920,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "1587f3cf.c60bdc",
+        "type": "comment",
+        "z": "334e2379.6cddec",
+        "name": "node-red-contrib-speakerpi dependency",
+        "info": "This flow requires the\n  node-red-contrib-speakerpi\nfor the Speaker Pi node.\nYou can either \n  $ sudo npm -g install node-red-contrib-speakerpi\n  and restart the Node-RED service\nor install it from Node-RED Manage Palette.",
+        "x": 980,
+        "y": 260,
+        "wires": []
+    }
+]
