@@ -40,7 +40,7 @@
         "type": "debug",
         "z": "334e2379.6cddec",
         "name": "Score",
-        "active": false,
+        "active": true,
         "console": "false",
         "complete": "topic",
         "x": 950,
@@ -199,9 +199,8 @@
         "y": 200,
         "wires": [
             [
-                "1c1a87c.9b79af8",
                 "e22fce8e.0c46c8",
-                "58557191.130b6"
+                "915588a6.f8a908"
             ]
         ]
     },
@@ -346,7 +345,7 @@
         "payload-response": true,
         "default-endpoint": true,
         "service-endpoint": "",
-        "x": 560,
+        "x": 880,
         "y": 200,
         "wires": [
             [
@@ -559,7 +558,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "238,130,238",
+                "to": "221,160,221",
                 "tot": "str"
             }
         ],
@@ -632,8 +631,8 @@
         "z": "334e2379.6cddec",
         "name": "node-red-node-watson dependency",
         "info": "This flow requires the\n  node-red-node-watson@0.5.10 or higher\nfor the following Watson nodes:\n  Text to Speech\n  Speech to Text\n  Tone Analyzer\n  Visual Recognition\n\nYou can either \n  $ sudo npm -g install node-red-node-watson\n  and restart the Node-RED service\nor install it from Node-RED Manage Palette.",
-        "x": 620,
-        "y": 240,
+        "x": 840,
+        "y": 160,
         "wires": []
     },
     {
@@ -642,7 +641,7 @@
         "z": "334e2379.6cddec",
         "name": "",
         "voice": "",
-        "x": 890,
+        "x": 1090,
         "y": 180,
         "wires": []
     },
@@ -652,7 +651,7 @@
         "z": "334e2379.6cddec",
         "name": "node-red-contrib-play-audio dependency",
         "info": "This flow requires the\n  node-red-contrib-play-audio\nfor the Browser play audio node.\nYou can either \n  $ sudo npm -g install node-red-contrib-play-audio\n  and restart the Node-RED service\nor install it from Node-RED Manage Palette.",
-        "x": 980,
+        "x": 1180,
         "y": 140,
         "wires": []
     },
@@ -666,7 +665,7 @@
         "bitdepth": "8",
         "samplerate": "11025",
         "name": "",
-        "x": 920,
+        "x": 1120,
         "y": 220,
         "wires": []
     },
@@ -676,8 +675,25 @@
         "z": "334e2379.6cddec",
         "name": "node-red-contrib-speakerpi dependency",
         "info": "This flow requires the\n  node-red-contrib-speakerpi\nfor the Speaker Pi node.\nYou can either \n  $ sudo npm -g install node-red-contrib-speakerpi\n  and restart the Node-RED service\nor install it from Node-RED Manage Palette.",
-        "x": 980,
-        "y": 260,
+        "x": 1180,
+        "y": 280,
         "wires": []
+    },
+    {
+        "id": "915588a6.f8a908",
+        "type": "function",
+        "z": "334e2379.6cddec",
+        "name": "Remove URLS and replace #",
+        "func": "// var tweet = msg.tweet.text;\nvar tweet = msg.payload;\nvar newtweet = tweet.replace(/#/g, \" Hash tag \");\n\n// regex from https://stackoverflow.com/questions/1500260/detect-urls-in-text-with-javascript\nmsg.payload = newtweet.replace( /(([a-z]+:\\/\\/)?(([a-z0-9\\-]+\\.)+([a-z]{2}|biz|com|co|edu|gov|info|net|org|ly))(:[0-9]{1,5})?(\\/[a-z0-9_\\-\\.~]+)*(\\/([a-z0-9_\\-\\.]*)(\\?[a-z0-9+_\\-\\.%=&amp;]*)?)?(#[a-zA-Z0-9!$&'()*+.=-_~:@/?]*)?)(\\s+|$)/gi, \"see short URL \" );\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 600,
+        "y": 200,
+        "wires": [
+            [
+                "58557191.130b6",
+                "1c1a87c.9b79af8"
+            ]
+        ]
     }
 ]
