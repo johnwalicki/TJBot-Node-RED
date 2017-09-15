@@ -52,4 +52,5 @@ Here is a one liner that will install all of these node-red nodes onto your Rasp
 $ sudo npm -g install libasound2-dev
 ```
 ```
-$ sudo npm --unsafe-perm -g install node-red-node-watson node-red-dashboard node-red-contrib-camerapi node-red-node-base64 node-red-contrib-play-audio node-red-contrib-micropi node-red-node-pi-neopixel node-red-node-weather-underground node-red-contrib-speakerpi```
+$ sudo npm --unsafe-perm -g install node-red-node-watson node-red-dashboard node-red-contrib-camerapi node-red-node-base64 node-red-contrib-play-audio node-red-contrib-micropi node-red-node-pi-neopixel node-red-node-weather-underground node-red-contrib-speakerpi
+```
