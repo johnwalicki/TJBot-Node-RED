@@ -46,13 +46,19 @@ These flows use a variety of Node-RED nodes that you might need to install on yo
 * node-red-node-pi-neopixel
 * node-red-node-weather-underground
 
-Here is a one liner that will install all of these node-red nodes onto your Raspberry Pi.  Remember to restart the Node-RED service or reboot the Raspberry Pi after the installs complete.  The --unsafe-perm is required for the successful installation of node-red-contrib-speakerpi. The libasound2-dev dependency is required for the compile of node-red-contrib-speakerpi which needs a header file alsa/asoundlib.h provided by libasound2-dev
+Here are install and configuration instructions that will set up all of the node-red nodes onto your Raspberry Pi.  Remember to restart the Node-RED service or reboot the Raspberry Pi after the installs complete.  The --unsafe-perm is required for the successful installation of node-red-contrib-speakerpi. The libasound2-dev dependency is required for the compile of node-red-contrib-speakerpi which needs a header file alsa/asoundlib.h provided by libasound2-dev
 
 ```
 $ sudo apt-get install libasound2-dev
 $ sudo chmod 777 /usr/lib/node_modules
 $ mkdir /home/pi/audio
 ```
+If you have not configured ALSA and the MicroPi / SpeakerPi nodes on your Raspberry Pi, you might need to remove the following parameter from /boot/config.txt
+```
+# Enable audio (loads snd_bcm2835)
+#dtparam=audio=on
+```
+You might also want to make certain that you are not blacklisting modules in /etc/modprobe.d/*.conf
 ```
 $ sudo npm --unsafe-perm -g install node-red-node-watson node-red-dashboard node-red-contrib-camerapi node-red-node-base64 node-red-contrib-play-audio node-red-contrib-micropi node-red-node-pi-neopixel node-red-node-weather-underground node-red-contrib-speakerpi
 ```
