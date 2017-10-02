@@ -56,9 +56,11 @@ $ mkdir /home/pi/audio
 If you have not configured ALSA and the MicroPi / SpeakerPi nodes on your Raspberry Pi, you might need to remove the following parameter from /boot/config.txt
 ```
 # Enable audio (loads snd_bcm2835)
-#dtparam=audio=on
+# dtparam=audio=on
 ```
-You might also want to make certain that you are not blacklisting modules in /etc/modprobe.d/*.conf
+You might also want to make certain that you are not blacklisting too many modules in /etc/modprobe.d/*.conf
+
+Finally, run this npm command:
 ```
 $ sudo npm --unsafe-perm -g install node-red-node-watson node-red-dashboard node-red-contrib-camerapi node-red-node-base64 node-red-contrib-play-audio node-red-contrib-micropi node-red-node-pi-neopixel node-red-node-weather-underground node-red-contrib-speakerpi
 ```
